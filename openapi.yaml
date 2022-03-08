@@ -1,0 +1,58 @@
+openapi: 3.0.1
+
+info:
+  title: "sample API"
+  description: "sample description."
+  version: "0.1.0"
+
+paths:
+  /kvs/{key}:
+    get:
+      description: Returns value
+      parameters:
+        - name: key
+          in: path
+          description: key to fetch
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KVPair"
+  /kvs:
+    post:
+        description: Put value
+        requestBody:
+          content:
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/KVPair'
+        responses:
+          200:
+            description: successful response
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Empty'
+
+components:
+  schemas:
+    KVPair:
+      type: object
+      nullable: false
+      properties:
+        key:
+          type: string
+          nullable: false
+        value:
+          type: string
+          nullable: false
+      default: {}
+    Empty:
+        type: object
+        nullable: false
+        default: {}
